@@ -145,10 +145,10 @@ const App = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-900 min-h-screen text-white">
-      <h1 className="text-2xl font-bold mb-4">Two-Coin EM: Log-Likelihood Surface</h1>
+    <div className="p-2 bg-gray-900 min-h-screen text-white text-sm">
+      <h1 className="text-lg font-bold mb-2">Two-Coin EM: Log-Likelihood Surface</h1>
       
-      <div className="flex flex-wrap gap-8">
+      <div className="flex flex-wrap gap-4">
         <div className="flex-shrink-0">
           <div 
             className="relative cursor-crosshair"
@@ -328,11 +328,11 @@ const App = () => {
           </div>
         </div>
         
-        <div className="flex-1 min-w-64">
-          <div className="space-y-4">
+        <div className="flex-1 min-w-56">
+          <div className="space-y-2">
             <div>
-              <h3 className="font-semibold mb-2">True Parameters</h3>
-              <label className="block text-sm">
+              <h3 className="font-semibold mb-1">True Parameters</h3>
+              <label className="block text-xs">
                 θ_A (true): {trueTheta_A.toFixed(2)}
                 <input
                   type="range"
@@ -344,7 +344,7 @@ const App = () => {
                   className="w-full"
                 />
               </label>
-              <label className="block text-sm">
+              <label className="block text-xs">
                 θ_B (true): {trueTheta_B.toFixed(2)}
                 <input
                   type="range"
@@ -359,8 +359,8 @@ const App = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-2">Data Generation</h3>
-              <label className="block text-sm">
+              <h3 className="font-semibold mb-1">Data Generation</h3>
+              <label className="block text-xs">
                 Experiments: {numExperiments}
                 <input
                   type="range"
@@ -371,7 +371,7 @@ const App = () => {
                   className="w-full"
                 />
               </label>
-              <label className="block text-sm">
+              <label className="block text-xs">
                 Flips per experiment: {flipsPerExperiment}
                 <input
                   type="range"
@@ -383,7 +383,7 @@ const App = () => {
                   className="w-full"
                 />
               </label>
-              <label className="block text-sm">
+              <label className="block text-xs">
                 Random seed: {seed}
                 <input
                   type="range"
@@ -397,8 +397,8 @@ const App = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-2">EM Algorithm</h3>
-              <label className="flex items-center gap-2 text-sm">
+              <h3 className="font-semibold mb-1">EM Algorithm</h3>
+              <label className="flex items-center gap-2 text-xs">
                 <input
                   type="checkbox"
                   checked={showEMPath}
@@ -406,38 +406,32 @@ const App = () => {
                 />
                 Show EM path
               </label>
-              <p className="text-xs text-gray-400 mt-1">
-                Click on the plot to set EM starting point
+              <p className="text-xs text-gray-400">
+                Click plot to set start · Start: ({emInit.a.toFixed(2)}, {emInit.b.toFixed(2)})
               </p>
               <p className="text-xs text-gray-400">
-                Start: ({emInit.a.toFixed(2)}, {emInit.b.toFixed(2)})
-              </p>
-              <p className="text-xs text-gray-400">
-                End: ({emPath[emPath.length - 1].a.toFixed(3)}, {emPath[emPath.length - 1].b.toFixed(3)})
-              </p>
-              <p className="text-xs text-gray-400">
-                Iterations: {emPath.length - 1}
+                End: ({emPath[emPath.length - 1].a.toFixed(3)}, {emPath[emPath.length - 1].b.toFixed(3)}) · Iterations: {emPath.length - 1}
               </p>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-2">Generated Data</h3>
-              <div className="text-xs space-y-1 max-h-40 overflow-y-auto">
+              <h3 className="font-semibold mb-1">Generated Data</h3>
+              <div className="text-xs space-y-0.5 max-h-24 overflow-y-auto">
                 {data.map((exp, i) => (
                   <div key={i} className="text-gray-300">
-                    Exp {i + 1}: {exp.heads}H/{exp.tails}T (was coin {exp.trueCoin})
+                    Exp {i + 1}: {exp.heads}H/{exp.tails}T (coin {exp.trueCoin})
                   </div>
                 ))}
               </div>
             </div>
           </div>
           
-          <div className="mt-4 p-3 bg-gray-800 rounded text-sm">
-            <p className="font-semibold">Legend:</p>
-            <p>○ White circle = true (θ_A, θ_B)</p>
-            <p>● Red dot = EM start</p>
-            <p>● Green dot = EM convergence</p>
-            <p className="mt-2 text-gray-400">
+          <div className="mt-2 p-2 bg-gray-800 rounded text-xs">
+            <span className="font-semibold">Legend: </span>
+            <span>○ White = true (θ_A, θ_B) · </span>
+            <span className="text-red-400">● Red = EM start · </span>
+            <span className="text-green-400">● Green = EM end</span>
+            <p className="mt-1 text-gray-400">
               Notice the symmetry along the diagonal — swapping θ_A ↔ θ_B gives the same likelihood.
             </p>
           </div>
