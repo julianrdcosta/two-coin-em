@@ -11,9 +11,15 @@ export default function Home() {
   const [resolution, setResolution] = useState(100);
   const [showEMPath, setShowEMPath] = useState(true);
   const [emInit, setEmInit] = useState({ a: 0.2, b: 0.8 });
+  const [mounted, setMounted] = useState(false);
   
   const canvasRef = useRef(null);
   const plotSize = 400;
+
+  // Only render color bar on client to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Seeded random number generator
   const seededRandom = (seed) => {
@@ -329,7 +335,7 @@ export default function Home() {
           <div className="mt-8 flex items-center gap-2">
             <span className="text-xs">Low LL</span>
             <div className="flex h-4 w-48">
-              {Array.from({ length: 50 }).map((_, i) => (
+              {mounted && Array.from({ length: 50 }).map((_, i) => (
                 <div
                   key={i}
                   className="flex-1"

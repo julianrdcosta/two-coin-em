@@ -1,0 +1,152 @@
+[00:00:01.792] Server  LOG      ✓ Ready in 1570ms
+[00:01:07.584] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:07.584] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.js">
+                <SegmentTrieNode>
+                <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                  <Home params={Promise} searchParams={Promise}>
+                    <div className="p-4 bg-gra...">
+                      <h1>
+                      <div className="flex flex-...">
+                        <div className="flex-shrink-0">
+                          <div>
+                          <div className="mt-8 flex ...">
+                            <span>
+                            <div className="flex h-4 w-48">
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div
+                                className="flex-1"
+                                style={{
++                                 backgroundColor: "hsl(169.6078583797728, 85.8660118016856%, 34.665029504214004%)"
+-                                 background-color: "rgb(12, 164, 138)"
+                                }}
+                              >
+                              ...
+                            ...
+                        ...
+              ...
+            ...
+
+[00:04:18.155] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:18.283] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.js">
+                <SegmentTrieNode>
+                <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                  <Home params={Promise} searchParams={Promise}>
+                    <div className="p-4 bg-gra...">
+                      <h1>
+                      <div className="flex flex-...">
+                        <div className="flex-shrink-0">
+                          <div>
+                          <div className="mt-8 flex ...">
+                            <span>
+                            <div className="flex h-4 w-48">
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div>
+                              <div
+                                className="flex-1"
+                                style={{
++                                 backgroundColor: "hsl(169.6078583797728, 85.8660118016856%, 34.665029504214004%)"
+-                                 background-color: "rgb(12, 164, 138)"
+                                }}
+                              >
+                              ...
+                            ...
+                        ...
+              ...
+            ...
+
+[00:06:47.252] Server  LOG      ✓ Compiled in 53ms
+[00:06:51.950] Server  LOG      ✓ Compiled in 22ms
+[00:07:42.489] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
