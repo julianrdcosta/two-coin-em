@@ -8,7 +8,6 @@
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
-      --tw-border-style: solid;
       --tw-font-weight: initial;
     }
   }
@@ -18,8 +17,6 @@
   :root, :host {
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --color-red-400: #ff6568;
-    --color-green-400: #05df72;
     --color-gray-300: #d1d5dc;
     --color-gray-400: #99a1af;
     --color-gray-800: #1e2939;
@@ -30,8 +27,6 @@
     --text-xs--line-height: calc(1 / .75);
     --text-sm: .875rem;
     --text-sm--line-height: calc(1.25 / .875);
-    --text-lg: 1.125rem;
-    --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
     --font-weight-semibold: 600;
@@ -42,8 +37,6 @@
 
   @supports (color: lab(0% 0 0)) {
     :root, :host {
-      --color-red-400: lab(63.7053% 60.745 31.3109);
-      --color-green-400: lab(78.503% -64.9265 39.7492);
       --color-gray-300: lab(85.1236% -.612259 -3.7138);
       --color-gray-400: lab(65.9269% -.832707 -8.17473);
       --color-gray-800: lab(16.1051% -1.18239 -11.7533);
@@ -301,20 +294,12 @@
 @layer components;
 
 @layer utilities {
-  .pointer-events-none {
-    pointer-events: none;
-  }
-
   .absolute {
     position: absolute;
   }
 
   .relative {
     position: relative;
-  }
-
-  .inset-0 {
-    inset: calc(var(--spacing) * 0);
   }
 
   .top-0 {
@@ -353,10 +338,6 @@
     margin-top: calc(var(--spacing) * 8);
   }
 
-  .mb-1 {
-    margin-bottom: calc(var(--spacing) * 1);
-  }
-
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -381,10 +362,6 @@
     height: calc(var(--spacing) * 4);
   }
 
-  .max-h-24 {
-    max-height: calc(var(--spacing) * 24);
-  }
-
   .max-h-32 {
     max-height: calc(var(--spacing) * 32);
   }
@@ -393,20 +370,12 @@
     min-height: 100vh;
   }
 
-  .w-4 {
-    width: calc(var(--spacing) * 4);
-  }
-
   .w-48 {
     width: calc(var(--spacing) * 48);
   }
 
   .w-full {
     width: 100%;
-  }
-
-  .min-w-56 {
-    min-width: calc(var(--spacing) * 56);
   }
 
   .min-w-64 {
@@ -419,10 +388,6 @@
 
   .flex-shrink-0 {
     flex-shrink: 0;
-  }
-
-  .-rotate-90 {
-    rotate: -90deg;
   }
 
   .transform {
@@ -445,30 +410,14 @@
     gap: calc(var(--spacing) * 2);
   }
 
-  .gap-4 {
-    gap: calc(var(--spacing) * 4);
-  }
-
   .gap-6 {
     gap: calc(var(--spacing) * 6);
-  }
-
-  :where(.space-y-0\.5 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * .5) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * .5) * calc(1 - var(--tw-space-y-reverse)));
   }
 
   :where(.space-y-1 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
-  }
-
-  :where(.space-y-2 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));
   }
 
   :where(.space-y-4 > :not(:last-child)) {
@@ -485,29 +434,12 @@
     border-radius: .25rem;
   }
 
-  .rounded-full {
-    border-radius: 3.40282e38px;
-  }
-
-  .border-2 {
-    border-style: var(--tw-border-style);
-    border-width: 2px;
-  }
-
-  .border-white {
-    border-color: var(--color-white);
-  }
-
   .bg-gray-800 {
     background-color: var(--color-gray-800);
   }
 
   .bg-gray-900 {
     background-color: var(--color-gray-900);
-  }
-
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
   }
 
   .p-3 {
@@ -520,11 +452,6 @@
 
   .text-center {
     text-align: center;
-  }
-
-  .text-lg {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
 
   .text-sm {
@@ -558,14 +485,6 @@
 
   .text-gray-400 {
     color: var(--color-gray-400);
-  }
-
-  .text-green-400 {
-    color: var(--color-green-400);
-  }
-
-  .text-red-400 {
-    color: var(--color-red-400);
   }
 
   .text-white {
@@ -602,12 +521,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0;
-}
-
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
 }
 
 @property --tw-font-weight {
