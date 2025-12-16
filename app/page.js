@@ -10,7 +10,7 @@ export default function Home() {
   const [seed, setSeed] = useState(45);
   const [resolution, setResolution] = useState(100);
   const [showEMPath, setShowEMPath] = useState(true);
-  const [emInit, setEmInit] = useState({ a: 0.45, b: 0.45 });
+  const [emInit, setEmInit] = useState({ a: 0.45, b: 0.55 });
   
   const canvasRef = useRef(null);
   const plotSize = 400;
