@@ -3,14 +3,16 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 
 export default function Home() {
-  const [trueTheta_A, setTrueTheta_A] = useState(0.2);
+  const [trueTheta_A, setTrueTheta_A] = useState(0.3);
   const [trueTheta_B, setTrueTheta_B] = useState(0.7);
   const [numExperiments, setNumExperiments] = useState(5);
   const [flipsPerExperiment, setFlipsPerExperiment] = useState(10);
-  const [seed, setSeed] = useState(45);
+  const [seed, setSeed] = useState(42);
   const [resolution, setResolution] = useState(100);
   const [showEMPath, setShowEMPath] = useState(true);
-  const [emInit, setEmInit] = useState({ a: 0.45, b: 0.55 });
+  const [showGDPath, setShowGDPath] = useState(true);
+  const [emInit, setEmInit] = useState({ a: 0.2, b: 0.8 });
+  const [learningRate, setLearningRate] = useState(0.1);
   
   const canvasRef = useRef(null);
   const plotSize = 400;
@@ -121,6 +123,55 @@ export default function Home() {
     
     return path;
   }, [data, emInit]);
+
+  // Run Gradient Descent and track path
+  const gdPath = useMemo(() => {
+    let thetaA = emInit.a;
+    let thetaB = emInit.b;
+    const path = [{ a: thetaA, b: thetaB }];
+    const lr = learningRate;
+    
+    for (let iter = 0; iter < 200; iter++) {
+      // Compute gradient of log-likelihood
+      let gradA = 0;
+      let gradB = 0;
+      
+      for (const exp of data) {
+        const { heads, tails } = exp;
+        const pA = 0.5 * Math.pow(thetaA, heads) * Math.pow(1 - thetaA, tails);
+        const pB = 0.5 * Math.pow(thetaB, heads) * Math.pow(1 - thetaB, tails);
+        const p = pA + pB;
+        
+        if (p > 1e-10) {
+          // d/d(thetaA) of log(pA + pB)
+          const dpA_dthetaA = 0.5 * Math.pow(thetaA, heads) * Math.pow(1 - thetaA, tails) * 
+            (heads / thetaA - tails / (1 - thetaA));
+          const dpB_dthetaB = 0.5 * Math.pow(thetaB, heads) * Math.pow(1 - thetaB, tails) * 
+            (heads / thetaB - tails / (1 - thetaB));
+          
+          gradA += dpA_dthetaA / p;
+          gradB += dpB_dthetaB / p;
+        }
+      }
+      
+      // Gradient ascent step
+      const newThetaA = thetaA + lr * gradA;
+      const newThetaB = thetaB + lr * gradB;
+      
+      // Clamp to valid range
+      thetaA = Math.max(0.01, Math.min(0.99, newThetaA));
+      thetaB = Math.max(0.01, Math.min(0.99, newThetaB));
+      
+      path.push({ a: thetaA, b: thetaB });
+      
+      // Check convergence
+      if (Math.abs(gradA) < 1e-6 && Math.abs(gradB) < 1e-6) {
+        break;
+      }
+    }
+    
+    return path;
+  }, [data, emInit, learningRate]);
 
   // Color mapping
   const getColor = (value, min, max) => {
@@ -277,23 +328,53 @@ export default function Home() {
       });
       ctx.stroke();
       
-      // Start point - red dot
+      // Start point
       const startX = ((emPath[0].a - 0.01) / 0.98) * plotSize;
       const startY = plotSize - ((emPath[0].b - 0.01) / 0.98) * plotSize;
       ctx.fillStyle = '#ff4444';
       ctx.beginPath();
-      ctx.arc(startX, startY, 6, 0, 2 * Math.PI);
+      ctx.arc(startX, startY, 5, 0, 2 * Math.PI);
       ctx.fill();
       
-      // End point - green dot
+      // End point
       const endX = ((emPath[emPath.length - 1].a - 0.01) / 0.98) * plotSize;
       const endY = plotSize - ((emPath[emPath.length - 1].b - 0.01) / 0.98) * plotSize;
       ctx.fillStyle = '#44ff44';
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(endX, endY, 6, 0, 2 * Math.PI);
       ctx.fill();
+      ctx.stroke();
     }
-  }, [surface, trueTheta_A, trueTheta_B, showEMPath, emPath, resolution]);
+    
+    // Draw GD path
+    if (showGDPath && gdPath.length > 1) {
+      ctx.strokeStyle = '#ffaa00';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 3]);
+      ctx.beginPath();
+      gdPath.forEach((p, i) => {
+        const x = ((p.a - 0.01) / 0.98) * plotSize;
+        const y = plotSize - ((p.b - 0.01) / 0.98) * plotSize;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // End point for GD
+      const endX = ((gdPath[gdPath.length - 1].a - 0.01) / 0.98) * plotSize;
+      const endY = plotSize - ((gdPath[gdPath.length - 1].b - 0.01) / 0.98) * plotSize;
+      ctx.fillStyle = '#ffaa00';
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(endX, endY, 6, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+    }
+  }, [surface, trueTheta_A, trueTheta_B, showEMPath, emPath, showGDPath, gdPath, resolution]);
 
   const handleCanvasClick = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
@@ -413,12 +494,38 @@ export default function Home() {
                 checked={showEMPath}
                 onChange={(e) => setShowEMPath(e.target.checked)}
               />
-              Show EM path
+              Show EM path (red)
             </label>
-            <p className="text-xs text-gray-400 mt-1">Click on the plot to set EM starting point</p>
+            <p className="text-xs text-gray-400 mt-1">Click on the plot to set starting point</p>
             <p className="text-sm mt-1">Start: ({emInit.a.toFixed(2)}, {emInit.b.toFixed(2)})</p>
             <p className="text-sm">End: ({emPath[emPath.length - 1].a.toFixed(3)}, {emPath[emPath.length - 1].b.toFixed(3)})</p>
             <p className="text-sm">Iterations: {emPath.length - 1}</p>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold mb-2">Gradient Descent</h3>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={showGDPath}
+                onChange={(e) => setShowGDPath(e.target.checked)}
+              />
+              Show GD path (orange dashed)
+            </label>
+            <label className="block text-sm mt-1">
+              Learning rate: {learningRate.toFixed(3)}
+              <input
+                type="range"
+                min="0.0001"
+                max="0.02"
+                step="0.0001"
+                value={learningRate}
+                onChange={(e) => setLearningRate(parseFloat(e.target.value))}
+                className="w-full"
+              />
+            </label>
+            <p className="text-sm mt-1">End: ({gdPath[gdPath.length - 1].a.toFixed(3)}, {gdPath[gdPath.length - 1].b.toFixed(3)})</p>
+            <p className="text-sm">Iterations: {gdPath.length - 1}</p>
           </div>
           
           <div>
@@ -435,16 +542,11 @@ export default function Home() {
           <div className="p-3 bg-gray-800 rounded text-sm">
             <p className="font-semibold">Legend:</p>
             <p>○ White circle = true (θ_A, θ_B)</p>
-            <p>
-              <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
-              Red dot = EM start
-            </p>
-            <p>
-              <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
-              Green dot = EM convergence
-            </p>
+            <p className="text-red-400">— Red solid = EM path</p>
+            <p className="text-orange-400">┄ Orange dashed = Gradient Descent</p>
+            <p>● Green dot = convergence point</p>
             <p className="mt-2 text-gray-400">
-              Notice the symmetry along the diagonal — swapping θ_A ↔ θ_B gives the same likelihood.
+              Notice: EM typically converges faster and more directly. GD can oscillate or take longer paths depending on learning rate.
             </p>
           </div>
         </div>
