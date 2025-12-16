@@ -2,6 +2,19 @@
 
 An interactive visualization of the Expectation-Maximization (EM) algorithm applied to the classic two-coin problem.
 
+## Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/two-coin-em)
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
 ## What it shows
 
 - **Log-likelihood surface** for estimating the bias parameters (θ_A, θ_B) of two coins
@@ -21,21 +34,3 @@ This is a classic example of a **latent variable problem** where EM shines.
 - Change the number of experiments and flips
 - Click anywhere on the plot to set the EM starting point
 - Watch EM converge to different local maxima depending on initialization
-
-## Deploy to Vercel
-
-```bash
-npm install
-npm run build
-```
-
-Or connect this repo to Vercel for automatic deployments.
-
-## Local Development
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
