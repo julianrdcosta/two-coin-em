@@ -277,24 +277,21 @@ export default function Home() {
       });
       ctx.stroke();
       
-      // Start point
+      // Start point - red dot
       const startX = ((emPath[0].a - 0.01) / 0.98) * plotSize;
       const startY = plotSize - ((emPath[0].b - 0.01) / 0.98) * plotSize;
       ctx.fillStyle = '#ff4444';
       ctx.beginPath();
-      ctx.arc(startX, startY, 5, 0, 2 * Math.PI);
+      ctx.arc(startX, startY, 6, 0, 2 * Math.PI);
       ctx.fill();
       
-      // End point
+      // End point - green dot
       const endX = ((emPath[emPath.length - 1].a - 0.01) / 0.98) * plotSize;
       const endY = plotSize - ((emPath[emPath.length - 1].b - 0.01) / 0.98) * plotSize;
       ctx.fillStyle = '#44ff44';
-      ctx.strokeStyle = 'white';
-      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(endX, endY, 6, 0, 2 * Math.PI);
       ctx.fill();
-      ctx.stroke();
     }
   }, [surface, trueTheta_A, trueTheta_B, showEMPath, emPath, resolution]);
 
@@ -438,8 +435,14 @@ export default function Home() {
           <div className="p-3 bg-gray-800 rounded text-sm">
             <p className="font-semibold">Legend:</p>
             <p>○ White circle = true (θ_A, θ_B)</p>
-            <p>● Red dot = EM start</p>
-            <p>● Green dot = EM convergence</p>
+            <p>
+              <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+              Red dot = EM start
+            </p>
+            <p>
+              <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+              Green dot = EM convergence
+            </p>
             <p className="mt-2 text-gray-400">
               Notice the symmetry along the diagonal — swapping θ_A ↔ θ_B gives the same likelihood.
             </p>
