@@ -3,14 +3,14 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 
 export default function Home() {
-  const [trueTheta_A, setTrueTheta_A] = useState(0.3);
+  const [trueTheta_A, setTrueTheta_A] = useState(0.2);
   const [trueTheta_B, setTrueTheta_B] = useState(0.7);
   const [numExperiments, setNumExperiments] = useState(5);
   const [flipsPerExperiment, setFlipsPerExperiment] = useState(10);
-  const [seed, setSeed] = useState(42);
+  const [seed, setSeed] = useState(45);
   const [resolution, setResolution] = useState(100);
   const [showEMPath, setShowEMPath] = useState(true);
-  const [emInit, setEmInit] = useState({ a: 0.2, b: 0.8 });
+  const [emInit, setEmInit] = useState({ a: 0.45, b: 0.45 });
   
   const canvasRef = useRef(null);
   const plotSize = 400;
