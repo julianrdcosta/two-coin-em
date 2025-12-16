@@ -163,11 +163,10 @@ const App = () => {
                   style={{
                     position: 'absolute',
                     left: i * cellSize,
-                    top: (resolution - j) * cellSize,
+                    bottom: j * cellSize,
                     width: cellSize,
                     height: cellSize,
                     backgroundColor: getColor(val, surface.minLL, surface.maxLL),
-                    boxSizing: 'border-box',
                   }}
                 />
               ))
@@ -269,7 +268,7 @@ const App = () => {
               className="absolute w-4 h-4 border-2 border-white rounded-full"
               style={{
                 left: ((trueTheta_A - 0.01) / 0.98) * plotSize - 8,
-                top: plotSize - ((trueTheta_B - 0.01) / 0.98) * plotSize - 8,
+                bottom: ((trueTheta_B - 0.01) / 0.98) * plotSize - 8,
               }}
               title={`True: (${trueTheta_A}, ${trueTheta_B})`}
             />
